@@ -5,6 +5,8 @@ let totalDeaths = document.getElementById("totalDeaths");
 let totalRecovered = document.getElementById("totalRecovered");
 let activeCases = document.getElementById("activeCases");
 
+let input = document.getElementById("input");
+
 let infectBar = document.createElement("div");
 
 let statDiv = document.createElement("statDiv");
@@ -29,6 +31,9 @@ var caseCount = 0;
 
 var posx = 0;
 var posy = HEIGHT/2;
+
+input.style.top = (HEIGHT/2)+50 + "px";
+input.style.right = (WIDTH - 800) + "px";
 
 function statusCount(){
     let healthy = 0;
@@ -154,7 +159,7 @@ let canvas = new p5((sketch)=>{
     sketch.setup = ()=>{
         let x = sketch.createCanvas(WIDTH,HEIGHT);
         x.parent('canvasHolder')
-        setPopulation(95, 5, 0);
+        setPopulation(5, 0, 95);
     };
 
     sketch.draw = ()=>{
@@ -189,13 +194,16 @@ let graph = new p5((sketch)=>{
         x.parent('graphHolder')
         sketch.background(0);
         sketch.noStroke();
+        sketch.fill(255, 255, 255);
+        sketch.textSize(32);
+        sketch.text('Active Cases', 10, 30);
     };
 
     sketch.draw = ()=>{
         posy = HEIGHT/2 - ((statusCount()[1]*((HEIGHT/2)/SIZE)));
         posx += 1;
         sketch.fill(sketch.color([255,255,255]))
-        sketch.rect(posx, posy, DIAMETER, HEIGHT-posy);
+        sketch.rect(posx, posy, 1, HEIGHT-posy);
     };
 
 });

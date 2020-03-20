@@ -42,3 +42,48 @@ body {
     top: 0;
     right: 0;
 }
+
+.slider {
+    -webkit-appearance: none;
+    width: 200px;
+    height: 15px;
+    border-radius: 5px;  
+    background: #FFFFFF;
+    outline: none;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+  
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; 
+    background: #F4511E;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #F4511E;
+    cursor: pointer;
+}
+
+#input {
+    width: 800px;
+    position: absolute;
+}
+
+#input li {
+    align-items: center;
+    color: #FFF;
+    display: flex;
+    flex-direction: row;
+}
+
+#input li p {
+    width: 170px;
+}
