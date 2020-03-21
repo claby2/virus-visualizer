@@ -233,6 +233,16 @@ let healthyCounter = document.getElementById("healthyCounter");
 let stillCounter = document.getElementById("stillCounter");
 let infectedCounter = document.getElementById("infectedCounter");
 
+lifetimeSlider.value = LIFETIME;
+healthySlider.value = healthyPopulation;
+stillSlider.value = stillPopulation;
+infectedSlider.value = infectedPopulation;
+
+lifetimeCounter.innerText = LIFETIME;
+healthyCounter.innerText = healthyPopulation;
+stillCounter.innerText = stillPopulation;
+infectedCounter.innerText = infectedPopulation;
+
 function updateSliderValue(n, e) {
     document.getElementById(e).innerText = n; 
 }
