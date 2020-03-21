@@ -27,8 +27,11 @@
             <div>
                 <div id = "graphHolder"></div>
                 <ul id = "input">
-                    <li><p>Virus Lifetime</p><input type = "range" min="1" max = "10000" value="100" class = "slider" id = "lifetimeSlider"></li>
-                    <li><p>Healthy</p><input type = "range" min="1" max = "10000" value="100" class = "slider" id = "healthySlider"></li>
+                    <li><p>Virus Lifetime</p><input type = "range" min="1" max = "10000" value="100" class = "slider" id = "lifetimeSlider" oninput="updateSliderValue(this.value, 'lifetimeCounter');"><p id = "lifetimeCounter"></p></li>
+                    <li><p>Healthy</p><input type = "range" min="0" max = "100" value="90" class = "slider" id = "healthySlider" oninput="updateSliderValue(this.value, 'healthyCounter');"><p id = "healthyCounter"></p></li>
+                    <li><p>Still</p><input type = "range" min="0" max = "100" value="5" class = "slider" id = "stillSlider" oninput="updateSliderValue(this.value, 'stillCounter');"><p id = "stillCounter"></p></li>
+                    <li><p>Infected</p><input type = "range" min="0" max = "100" value="5" class = "slider" id = "infectedSlider" oninput="updateSliderValue(this.value, 'infectedCounter');"><p id = "infectedCounter"></p></li>
+                    <li><button id = "simulateButton">Simulate</button></li>
                 </ul>
             </div>
         </div>

@@ -15,6 +15,10 @@ infectBar.classList.add("infectBar");
 
 statBar.appendChild(infectBar);
 
+var healthyPopulation = 90;
+var infectedPopulation = 1;
+var stillPopulation = 9;
+
 var people = [];
 var DIAMETER = 15;
 var SIZE = 100;
@@ -22,7 +26,7 @@ var SPEED = 0.5;
 var INFECTED = [255,0,0];
 var HEALTHY = [255,255,255];
 var STILL = HEALTHY;
-var LIFETIME = 100;
+var LIFETIME = 1000;
 
 var WIDTH = 800;
 var HEIGHT = 800;
@@ -53,8 +57,7 @@ function statusCount(){
     return [healthy, infected, still];
 }
 
-
-let canvas = new p5((sketch)=>{
+let canvas = ((s)=>{
 
     class Person {
         constructor(state, still){
@@ -110,7 +113,7 @@ let canvas = new p5((sketch)=>{
         }
     
         intersect(other){
-            if(sketch.dist(this.x, this.y, other.x, other.y) < this.diameter){
+            if(s.dist(this.x, this.y, other.x, other.y) < this.diameter){
                 if(!this.still && !other.still){
                     this.swapVector();
                 }
@@ -133,8 +136,8 @@ let canvas = new p5((sketch)=>{
         }
     
         display(){
-            sketch.fill(sketch.color(this.state))
-            sketch.ellipse(this.x, this.y, this.diameter, this.diameter);
+            s.fill(s.color(this.state))
+            s.ellipse(this.x, this.y, this.diameter, this.diameter);
         }
     }
     
@@ -156,14 +159,14 @@ let canvas = new p5((sketch)=>{
         }
     }
 
-    sketch.setup = ()=>{
-        let x = sketch.createCanvas(WIDTH,HEIGHT);
+    s.setup = ()=>{
+        let x = s.createCanvas(WIDTH,HEIGHT);
         x.parent('canvasHolder')
-        setPopulation(5, 0, 95);
+        setPopulation(healthyPopulation, infectedPopulation, stillPopulation);
     };
 
-    sketch.draw = ()=>{
-        sketch.background(0);
+    s.draw = ()=>{
+        s.background(0);
 
         for(let i = 0; i < people.length; i++){
             if(people[i].state === INFECTED && people[i].time > LIFETIME && people.indexOf(people[i]) > -1){
@@ -187,29 +190,69 @@ let canvas = new p5((sketch)=>{
     };
 });
 
-let graph = new p5((sketch)=>{
+let graph = (s)=>{
 
-    sketch.setup = ()=>{
-        let x = sketch.createCanvas(WIDTH,HEIGHT/2);
+    s.setup = ()=>{
+        let x = s.createCanvas(WIDTH,HEIGHT/2);
         x.parent('graphHolder')
-        sketch.background(0);
-        sketch.noStroke();
-        sketch.fill(255, 255, 255);
-        sketch.textSize(32);
-        sketch.text('Active Cases', 10, 30);
+        s.background(0);
+        s.noStroke();
+        s.fill(255, 255, 255);
+        s.textSize(32);
+        s.text('Active Cases', 10, 30);
+        posy = 0;
+        posx = 0;
+        s.fill(s.color([255,0,0]));
+        s.rect(0, HEIGHT/2 - SIZE*((HEIGHT/3)/SIZE), WIDTH, 1);
+        s.fill(s.color([255,255,255]))
     };
 
-    sketch.draw = ()=>{
-        posy = HEIGHT/2 - ((statusCount()[1]*((HEIGHT/2)/SIZE)));
+    s.draw = ()=>{
+        posy = HEIGHT/2 - statusCount()[1]*((HEIGHT/3)/SIZE);
         posx += 1;
-        sketch.fill(sketch.color([255,255,255]))
-        sketch.rect(posx, posy, 1, HEIGHT-posy);
+        s.rect(posx, posy, 1, HEIGHT-posy);
     };
 
-});
-
-
+};
 
 let cv = new p5(canvas);
-
 let gp = new p5(graph);
+
+
+// Streamlined Input
+
+let simulateButton = document.getElementById("simulateButton");
+
+let lifetimeSlider = document.getElementById("lifetimeSlider");
+let healthySlider = document.getElementById("healthySlider");
+let stillSlider = document.getElementById("stillSlider");
+let infectedSlider = document.getElementById("infectedSlider");
+
+let lifetimeCounter = document.getElementById("lifetimeCounter");
+let healthyCounter = document.getElementById("healthyCounter");
+let stillCounter = document.getElementById("stillCounter");
+let infectedCounter = document.getElementById("infectedCounter");
+
+function updateSliderValue(n, e) {
+    document.getElementById(e).innerText = n; 
+}
+
+simulateButton.addEventListener("click", ()=>{
+
+    LIFETIME = parseInt(lifetimeSlider.value);
+    healthyPopulation = parseInt(healthySlider.value);
+    stillPopulation = parseInt(stillSlider.value);
+    infectedPopulation = parseInt(infectedSlider.value);
+
+    cv.remove();
+    gp.remove();
+
+    people = [];
+    SIZE = healthyPopulation + stillPopulation + infectedPopulation;
+    caseCount = 0;
+
+    cv = new p5(canvas);
+    gp = new p5(graph);
+    
+})
+
