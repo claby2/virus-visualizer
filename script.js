@@ -27,17 +27,9 @@ var INFECTED = [255,0,0];
 var HEALTHY = [255,255,255];
 var STILL = HEALTHY;
 var LIFETIME = 1000;
-
-var WIDTH = 800;
-var HEIGHT = 800;
-
 var caseCount = 0;
 
-var posx = 0;
-var posy = HEIGHT/2;
-
-input.style.top = (HEIGHT/2)+50 + "px";
-input.style.right = (WIDTH - 800) + "px";
+resetDimensions()
 
 function statusCount(){
     let healthy = 0;
@@ -247,8 +239,20 @@ function updateSliderValue(n, e) {
     document.getElementById(e).innerText = n; 
 }
 
-simulateButton.addEventListener("click", ()=>{
+function resetDimensions(){
+    WIDTH = (window.innerWidth - 200)/2;
+    HEIGHT = WIDTH;
+    statBar.style.width = WIDTH;
+    posx = 0;
+    posy = HEIGHT/2;
+    if(window.innerWidth <= 1300){
+        input.style.marginTop = "10px";
+    } else {
+        input.style.marginTop = (HEIGHT/2) + "px";
+    }
+}
 
+function reset() {
     LIFETIME = parseInt(lifetimeSlider.value);
     healthyPopulation = parseInt(healthySlider.value);
     stillPopulation = parseInt(stillSlider.value);
@@ -263,6 +267,13 @@ simulateButton.addEventListener("click", ()=>{
 
     cv = new p5(canvas);
     gp = new p5(graph);
-    
+}
+
+simulateButton.addEventListener("click", ()=>{
+    reset()
 })
 
+window.addEventListener("resize", ()=>{
+    resetDimensions()
+    reset()
+})

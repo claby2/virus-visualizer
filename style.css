@@ -26,7 +26,6 @@ body {
 
 #statBar {
     border-radius: 20px;
-    width: 800px;
     height: 30px;
     background-color: #FAFAFA;
 }
@@ -73,8 +72,10 @@ body {
 }
 
 #input {
-    width: 800px;
-    position: absolute;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0 0 0 15px;
 }
 
 #input li {
@@ -85,5 +86,44 @@ body {
 }
 
 #input li p {
-    width: 170px;
+    width: 150px;
+}
+
+@media (max-width: 1300px) {
+    #graphHolder {
+        position: relative;
+    }
+    .content {
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .statDiv {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .contentRight {
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    #input {
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+
+    #input li p {
+        width: auto;
+    }
+
+    .stat{
+        height: 50px;
+        width: 50px;
+        line-height: 12px;
+
+    }
 }
