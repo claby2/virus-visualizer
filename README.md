@@ -1,4 +1,4 @@
-# virus-visualizer
+# Virus Visualizer
 
 A visual model of the spread of a virus with modifiable factors such as:
 - Virus Lifetime
@@ -9,3 +9,8 @@ A visual model of the spread of a virus with modifiable factors such as:
 A virus is considered to be successfully spread when an infected entity intersects with a non-infected entity. 
 
 A graph is displayed with a consistent x-axis (time) between scenarios to monitor spread rate which tracks active cases on the y-axis.
+
+### Dependencies
+```
+p5.js
+```
